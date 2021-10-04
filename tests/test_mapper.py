@@ -12,17 +12,17 @@ test_category_name= ''.join(random.choices(string.ascii_letters, k=7))
 print(test_latitude,test_longitute,test_category_name)
 
 def test_create_map():
-    res,r = create_map()
+    r = create_map()
     assert r.status_code == 200
 
 def test_create_markers():
-    res, r = create_markers(map_id=test_map_id,lat=test_latitude,long=test_longitute,cat_name=test_category_name)
+    r = create_markers(map_id=test_map_id,lat=test_latitude,long=test_longitute,cat_name=test_category_name)
     assert r.status_code == 201
 
 def test_list_markers():
-    res, r = list_markers(map_id=test_map_id)
+    r = list_markers(map_id=test_map_id)
     assert r.status_code == 200
 
 def test_edit_markers():
-    res, r = edit_markers(map_id=test_map_id,marker_id=test_marker_id,token=test_marker_token)
+    r = edit_markers(map_id=test_map_id,marker_id=test_marker_id,token=test_marker_token)
     assert r.status_code == 200

@@ -36,7 +36,7 @@ def post_cartes(url:str,data:dict,req:str) -> requests.models.Response:
     return response
 
 # Create a map : POST /api/maps
-def create_map(map_title:str=None,map_des:str=None,slug:str=None,privacy:str="public",c_marker:str="yes")-> tuple[dict,requests.models.Response]:
+def create_map(map_title:str=None,map_des:str=None,slug:str=None,privacy:str='public',c_marker:str='yes') -> dict:
     url = CARTES_BASE_URL + 'api/maps'
     data = {
         "title" : map_title,
@@ -47,15 +47,10 @@ def create_map(map_title:str=None,map_des:str=None,slug:str=None,privacy:str="pu
     }
     r = post_cartes(url,data,'POST')
     sys.stderr.write("creation of map:" + str(r.status_code))
-    if r.status_code <=202:
-        if r.headers.get('content-type') == 'application/json':
-            res = json.loads(r.text)
-        else:
-            sys.exit('Error in map input parameters')
-    return res,r
+    return r
 
 # Create a marker on a map : POST /api/maps/{map-id}/markers
-def create_markers(map_id:str,lat:int,long:int,category:int=None,cat_name:str=None,mar_des:str=None)-> tuple[dict,requests.models.Response]:
+def create_markers(map_id:str,lat:int,long:int,category:int=None,cat_name:str=None,mar_des:str=None)-> dict:
     url = CARTES_BASE_URL + 'api/maps/' + map_id + '/markers'
     data ={
         "lat" : lat,
@@ -71,28 +66,18 @@ def create_markers(map_id:str,lat:int,long:int,category:int=None,cat_name:str=No
 
     r = post_cartes(url,data,'POST')
     sys.stderr.write("creation of markers:" + str(r.status_code))
-    if r.status_code <= 202:
-        if r.headers.get('content-type') == 'application/json':
-            res = json.loads(r.text)
-        else:
-            sys.exit(' Error occur in creation of markers, check input parameters(may be duplicate)')
-    return res,r
+    return r
 
 # Get all markers on a map : GET /api/maps/{map-id}/markers
-def list_markers(map_id:str)-> tuple[dict,requests.models.Response]:
+def list_markers(map_id:str)-> dict:
     url = CARTES_BASE_URL + 'api/maps/' + map_id + '/markers'
     data:dict = {}
     r = post_cartes(url,data,'GET')
     sys.stderr.write("list markers:" + str(r.status_code))
-    if r.status_code <= 202:
-        if r.headers.get('content-type') == 'application/json':
-            res = json.loads(r.text)
-        else:
-            sys.exit('Error in list markers')
-    return res,r
+    return r
 
 # Edit a marker on a map : PUT /api/maps/{map-id}/markers/{marker-id}
-def edit_markers(map_id:str,marker_id:str,token:str,des:str=None) -> tuple[dict,requests.models.Response]:
+def edit_markers(map_id:str,marker_id:str,token:str,des:str=None) -> dict:
     url = CARTES_BASE_URL + 'api/maps/' + map_id + '/markers/' + marker_id
     data = {
         "description": des,
@@ -100,12 +85,7 @@ def edit_markers(map_id:str,marker_id:str,token:str,des:str=None) -> tuple[dict,
     }
     r = post_cartes(url,data,'PUT')
     sys.stderr.write("edit markers:" + str(r.status_code))
-    if r.status_code <= 202:
-        if r.headers.get('content-type') == 'application/json':
-            res = json.loads(r.text)
-        else:
-            sys.exit('Error in list markers')
-    return res,r
+    return r
 
 def main():
     parser = argparse.ArgumentParser(description='Validate')
@@ -139,7 +119,12 @@ def main():
 
     # creation of map
     if args.createmap:
-        map,r = create_map(map_title=args.maptitle,map_des=args.mapdes,slug=None,privacy=args.mappriv,c_marker=args.mapusr)
+        r = create_map(map_title=args.maptitle,map_des=args.mapdes,slug=None,privacy=args.mappriv,c_marker=args.mapusr)
+        if r.status_code <= 202:
+            if r.headers.get('content-type') == 'application/json':
+                map = json.loads(r.text)
+            else:
+                sys.exit('Error in map input parameters')
         map_id = map["uuid"]
         map_token = map["token"]
         json_dump(map, 'map_'+str(map_id))
@@ -152,7 +137,12 @@ def main():
         if (args.createmap == None and args.mapid == None or (args.marlat == None or args.marlong == None) or (
                 args.marctnm == None and args.marcat == None)):
             parser.error('Creation of markers required map id , latitude , longitaude and category id or name')
-        marker,r = create_markers(map_id=args.mapid,lat=args.marlat,long=args.marlong,cat_name=args.marctnm,category=args.marcat)
+        r = create_markers(map_id=args.mapid,lat=args.marlat,long=args.marlong,cat_name=args.marctnm,category=args.marcat)
+        if r.status_code <= 202:
+            if r.headers.get('content-type') == 'application/json':
+                marker = json.loads(r.text)
+            else:
+                sys.exit(' Error occur in creation of markers, check input parameters(may be duplicate)')
         marker_id = marker["id"]
         marker_token = marker["token"]
         json_dump(marker, 'map_' + str(args.mapid))
@@ -160,19 +150,34 @@ def main():
 
     # edit markers
     if args.editmarker:
+        if 'map_id' in locals():
+            args.mapid = map_id
         if (args.createmap == None and args.mapid == None or (args.martoken == None or args.marid == None)):
             parser.error('edit of markers required map id,marker id and marker token')
-        em,r = edit_markers(map_id=args.mapid,marker_id=args.marid,token=args.martoken,des=args.mardes)
+        r = edit_markers(map_id=args.mapid,marker_id=args.marid,token=args.martoken,des=args.mardes)
+        if r.status_code <= 202:
+            if r.headers.get('content-type') == 'application/json':
+                em = json.loads(r.text)
+            else:
+                sys.exit('Error in list markers')
         print(em)
 
 
     # list all markers
     if args.listmarker:
+        if 'map_id' in locals():
+            args.mapid = map_id
         if (args.createmap == None and args.mapid == None):
             parser.error('list of markers required map id')
-        lst_marker,r = list_markers(map_id=args.mapid)
+        r = list_markers(map_id=args.mapid)
+        if r.status_code <= 202:
+            if r.headers.get('content-type') == 'application/json':
+                lst_marker = json.loads(r.text)
+            else:
+                sys.exit('Error in list markers')
         markerid = [ str(i["id"]) for i in lst_marker]
         print(markerid)
+        print(lst_marker)
         json_dump(lst_marker, 'map_' + str(args.mapid)+'_markers','w')
 
 
