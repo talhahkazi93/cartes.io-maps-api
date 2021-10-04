@@ -3,8 +3,12 @@ __pycache__/
 
 # C extensions
 *.so
+doc
 
 # Distribution / packaging
+.idea/
+.vscode/
+venv/
 bin/
 build/
 develop-eggs/
