@@ -49,4 +49,11 @@ The main function is the `main()` function in `mapper.py`.
 
 **[marker-token]** can be set by using `-rk` identifier 
 
-"# razakazi-t" 
+### Dockers
+
+**[Usage]** 
+* program can be run by first greating docker image Like:
+  * `docker build -t dockerpython .`
+* run the file using the given command with all the above possible arguments:
+  * `docker run --rm  dockerpython -m -l`
+
