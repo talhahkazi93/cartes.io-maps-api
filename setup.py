@@ -1,5 +1,5 @@
 from setuptools import setup
-REQUIRMENTS = ['requests','mypy']
+REQUIRMENTS = ['requests']
 
 setup(
     name='cartesmapper',
