@@ -1,0 +1,107 @@
+{
+    "created_at": "2021-10-11T10:43:55+02:00",
+    "description": "",
+    "privacy": "public",
+    "slug": "060e1fea-bc79-4a29-bd87-e7a577361d3b",
+    "title": null,
+    "token": "J7QckXMMlpBGa3pw8vFeMdHu2KobPEHt",
+    "updated_at": "2021-10-11T10:43:55+02:00",
+    "users_can_create_markers": "yes",
+    "uuid": "060e1fea-bc79-4a29-bd87-e7a577361d3b"
+}{
+    "category": {
+        "icon": "/images/marker-01.svg",
+        "id": 307,
+        "name": "10115Berlin",
+        "slug": "10115berlin"
+    },
+    "category_id": 307,
+    "created_at": "2021-10-11T11:20:12+02:00",
+    "description": "",
+    "expires_at": null,
+    "id": 1483,
+    "location": {
+        "coordinates": [
+            52.5323,
+            13.3846
+        ],
+        "type": "Point"
+    },
+    "map": {
+        "created_at": "2021-10-11T10:43:55+02:00",
+        "description": "",
+        "options": null,
+        "privacy": "public",
+        "slug": "060e1fea-bc79-4a29-bd87-e7a577361d3b",
+        "title": null,
+        "updated_at": "2021-10-11T11:20:12+02:00",
+        "users_can_create_markers": "yes",
+        "uuid": "060e1fea-bc79-4a29-bd87-e7a577361d3b"
+    },
+    "token": "oc6W4RMEExgGLOLSWBxF1bryawp1Dtvh",
+    "updated_at": "2021-10-11T11:20:12+02:00"
+}{
+    "category": {
+        "icon": "/images/marker-01.svg",
+        "id": 308,
+        "name": "10117Berlin",
+        "slug": "10117berlin"
+    },
+    "category_id": 308,
+    "created_at": "2021-10-11T11:20:35+02:00",
+    "description": "",
+    "expires_at": null,
+    "id": 1484,
+    "location": {
+        "coordinates": [
+            52.517,
+            13.3872
+        ],
+        "type": "Point"
+    },
+    "map": {
+        "created_at": "2021-10-11T10:43:55+02:00",
+        "description": "",
+        "options": null,
+        "privacy": "public",
+        "slug": "060e1fea-bc79-4a29-bd87-e7a577361d3b",
+        "title": null,
+        "updated_at": "2021-10-11T11:20:35+02:00",
+        "users_can_create_markers": "yes",
+        "uuid": "060e1fea-bc79-4a29-bd87-e7a577361d3b"
+    },
+    "token": "hJ2CopdsjEZqGDSq7R6jS97fbUKXkjM9",
+    "updated_at": "2021-10-11T11:20:35+02:00"
+}{
+    "category": {
+        "icon": "/images/marker-01.svg",
+        "id": 309,
+        "name": "10119Berlin",
+        "slug": "10119berlin"
+    },
+    "category_id": 309,
+    "created_at": "2021-10-11T11:20:41+02:00",
+    "description": "",
+    "expires_at": null,
+    "id": 1485,
+    "location": {
+        "coordinates": [
+            52.5305,
+            13.4053
+        ],
+        "type": "Point"
+    },
+    "map": {
+        "created_at": "2021-10-11T10:43:55+02:00",
+        "description": "",
+        "options": null,
+        "privacy": "public",
+        "slug": "060e1fea-bc79-4a29-bd87-e7a577361d3b",
+        "title": null,
+        "updated_at": "2021-10-11T11:20:41+02:00",
+        "users_can_create_markers": "yes",
+        "uuid": "060e1fea-bc79-4a29-bd87-e7a577361d3b"
+    },
+    "token": "UvREpl9qQ9oZzWcRjEEqr6nuAn4lZ6Y4",
+    "updated_at": "2021-10-11T11:20:41+02:00"
+}
