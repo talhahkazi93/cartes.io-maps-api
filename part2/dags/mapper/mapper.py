@@ -37,7 +37,6 @@ def post_cartes(url:str,data:dict,req:str) -> requests.models.Response:
 
 # Create a map : POST /api/maps
 def create_map(map_title:str=None,map_des:str=None,slug:str=None,privacy:str='public',c_marker:str='yes') -> dict:
-    CARTES_BASE_URL = 'https://cartes.io/'
     url = CARTES_BASE_URL + 'api/maps'
     data = {
         "title" : map_title,
@@ -129,8 +128,7 @@ def main():
         map_id = map["uuid"]
         map_token = map["token"]
         json_dump(map, 'map_'+str(map_id))
-        print(map_id)
-
+        print(map)
 
     # creation of markers
     if args.createmarker:

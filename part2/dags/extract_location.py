@@ -21,6 +21,13 @@ def run_loc(file , admincode,ti):
     ti.xcom_push(key='locations_dict',value=locs)
     # return locs
 
+# from subprocess import Popen, PIPE
+# # path = os.path.join(sys.path[0],"DE.txt")
+# path = '..\..\Kazi\PycharmProjects\cartes.io'
+# p = Popen(['python','-m','mapper'],stdin=PIPE, stdout=PIPE, stderr=PIPE)
+# output, err = p.communicate()
+# val = output.decode("utf-8")
+# print(val)
 
 # from subprocess import Popen, PIPE
 # import time

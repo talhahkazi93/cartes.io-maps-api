@@ -50,7 +50,7 @@ def create_map(map_title:str=None,map_des:str=None,slug:str=None,privacy:str='pu
     return r
 
 # Create a marker on a map : POST /api/maps/{map-id}/markers
-def create_markers(map_id:str,lat:int,long:int,category:int=None,cat_name:str=None,mar_des:str=None)-> dict:
+def create_markers(map_id:str,lat:float,long:float,category:int=None,cat_name:str=None,mar_des:str=None)-> dict:
     url = CARTES_BASE_URL + 'api/maps/' + map_id + '/markers'
     data ={
         "lat" : lat,
@@ -101,8 +101,8 @@ def main():
     parser.add_argument('-ri', dest='marid', help='marker-id', nargs='?', type=str)
     parser.add_argument('-rn', dest='marctnm', help='marker-categoryname',nargs='?',type=str)
     parser.add_argument('-rc', dest='marcat', help='marker-category', nargs='?',type=int)
-    parser.add_argument('-rl', dest='marlat', help='marker-lattitude', nargs='?',type=int)
-    parser.add_argument('-rg', dest='marlong', help='marker-longitude', nargs='?',type=int)
+    parser.add_argument('-rl', dest='marlat', help='marker-lattitude', nargs='?')
+    parser.add_argument('-rg', dest='marlong', help='marker-longitude', nargs='?')
     parser.add_argument('-rd', dest='mardes', help='marker-description', nargs='?', default="", type=str)
     parser.add_argument('-rk', dest='martoken', help='marker-token', nargs='?', type=str)
 
@@ -137,7 +137,7 @@ def main():
         if (args.createmap == None and args.mapid == None or (args.marlat == None or args.marlong == None) or (
                 args.marctnm == None and args.marcat == None)):
             parser.error('Creation of markers required map id , latitude , longitaude and category id or name')
-        r = create_markers(map_id=args.mapid,lat=args.marlat,long=args.marlong,cat_name=args.marctnm,category=args.marcat)
+        r = create_markers(map_id=args.mapid,lat=float(args.marlat),long=float(args.marlong),cat_name=args.marctnm,category=args.marcat)
         if r.status_code <= 202:
             if r.headers.get('content-type') == 'application/json':
                 marker = json.loads(r.text)
